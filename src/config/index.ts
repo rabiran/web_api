@@ -6,7 +6,10 @@ const config = {
         port: env.get('PORT').required().asPortNumber(),
     },
     proxy: {
-        uri: env.get('PROXY_DATA_URI').required().asUrlString(),
+        souf_uri: env.get('SOUF_URI').required().asUrlString(),
+        aka_uri: env.get('AKA_URI').required().asUrlString(),
+        eight_socks_uri: env.get('EIGHT_SOCKS_URI').required().asUrlString(),
+        ad_uri: env.get('AD_URI').required().asUrlString(),
         mock: env.get('PROXY_MOCK').required().asBool(),
     },
     rabbit: {
