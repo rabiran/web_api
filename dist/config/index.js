@@ -19,25 +19,42 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const env = __importStar(require("env-var"));
+exports.configEnv = void 0;
+const dataSources_1 = require("./dataSources");
 require("./dotenv");
-const config = {
+const env = __importStar(require("env-var"));
+exports.configEnv = {
     service: {
         port: env.get('PORT').required().asPortNumber(),
     },
     proxy: {
-        uri: env.get('PROXY_DATA_URI').required().asUrlString(),
-        mock: env.get('PROXY_MOCK').required().asBool(),
+        is_outside: env.get('IS_OUTSIDE').default('false').asBool(),
+        souf_uri: env.get('SOUF_URI').required().asUrlString(),
+        aka_uri: env.get('AKA_URI').required().asUrlString(),
+        eight_socks_uri: env.get('EIGHT_SOCKS_URI').required().asUrlString(),
+        city_uri: env.get('CITY_URI').required().asUrlString(),
+        isMock: env.get('PROXY_MOCK').required().asBool(),
     },
     rabbit: {
-        uri: env.get('MATCH_TO_KART_RABBIT_URI').required().asUrlString(),
+        uri: env.get('MATCH_TO_KART_RABBIT_URI').required().asString(),
+        afterMatchQName: env.get('AFTER_MATCH_QUEUE_NAME').required().asString(),
+        beforeMatchQName: env.get('BEFORE_MATCH_QUEUE_NAME').required().asString(),
+        kiddyQName: env.get('KIDDY_QUEUE_NAME').required().asString(),
         retryOptions: {
             minTimeout: env.get('RABBIT_RETRY_MIN_TIMEOUT').default(1000).asIntPositive(),
             retries: env.get('RABBIT_RETRY_RETRIES').default(10).asIntPositive(),
             factor: env.get('RABBIT_RETRY_FACTOR').default(1.8).asFloatPositive(),
         },
-        mock: env.get('RABBIT_MOCK').required().asBool(),
+        isMockMatchToKart: env.get('RABBIT_MOCK_MATCH_TO_KART').required().asBool(),
+        isMockKiddy: env.get('RABBIT_MOCK_KIDDY').required().asBool(),
     },
+    dataSources: dataSources_1.dataSources,
 };
+const obj = new Map();
+obj.set(dataSources_1.dataSources.aka, exports.configEnv.proxy.aka_uri);
+obj.set(dataSources_1.dataSources.city, exports.configEnv.proxy.city_uri);
+obj.set(dataSources_1.dataSources.sf, exports.configEnv.proxy.souf_uri);
+obj.set(dataSources_1.dataSources.es, exports.configEnv.proxy.eight_socks_uri);
+const config = Object.assign(exports.configEnv, { urlSources: obj });
 exports.default = config;
 //# sourceMappingURL=index.js.map

@@ -7,39 +7,29 @@ exports.sendRecord = exports.connectRabbit = void 0;
 const menashmq_1 = __importDefault(require("menashmq"));
 const index_1 = __importDefault(require("../config/index"));
 const connectRabbit = async () => {
-    if (index_1.default.rabbit.mock) {
-        await menashmq_1.default.connect(index_1.default.rabbit.uri, index_1.default.rabbit.retryOptions);
-        console.log('Rabbit connected');
-        await menashmq_1.default.declareQueue('beforematch');
-        await menashmq_1.default.declareQueue('aftermatch');
-        await menashmq_1.default.send('aftermatch', { record: 'hey', dataSource: 'hey2' });
-        await menashmq_1.default.queue('aftermatch').activateConsumer(async (msg) => {
-            let record = msg.getContent();
-            console.log(record);
-            await menashmq_1.default.send('beforematch', JSON.stringify(record));
-            msg.ack();
-        }, { noAck: false });
-        await menashmq_1.default.queue('beforematch').activateConsumer(async (msg) => {
-            let record = msg.getContent();
-            console.log('reading' + record);
-            msg.ack();
-        }, { noAck: false });
+    if (index_1.default.rabbit.isMockKiddy && index_1.default.rabbit.isMockMatchToKart) {
         return;
     }
     console.log('Connecting to Rabbit...');
     await menashmq_1.default.connect(index_1.default.rabbit.uri, index_1.default.rabbit.retryOptions);
     console.log('Rabbit connected');
-    await menashmq_1.default.declareQueue('beforematch');
-    await menashmq_1.default.declareQueue('aftermatch');
-    await menashmq_1.default.queue('aftermatch').activateConsumer(async (msg) => {
+    await menashmq_1.default.declareQueue(index_1.default.rabbit.beforeMatchQName);
+    await menashmq_1.default.declareQueue(index_1.default.rabbit.afterMatchQName);
+    await menashmq_1.default.declareQueue(index_1.default.rabbit.kiddyQName);
+    if (index_1.default.rabbit.isMockMatchToKart) {
+        return;
+    }
+    await menashmq_1.default.queue(index_1.default.rabbit.afterMatchQName).activateConsumer(async (msg) => {
         let record = msg.getContent();
-        await menashmq_1.default.send('menash-queue', JSON.stringify(record));
+        if (!index_1.default.rabbit.isMockKiddy) {
+            await menashmq_1.default.send(index_1.default.rabbit.kiddyQName, JSON.stringify(record));
+        }
         msg.ack();
     }, { noAck: false });
 };
 exports.connectRabbit = connectRabbit;
 const sendRecord = async (record, dataSource) => {
-    await menashmq_1.default.send('aftermatch', { record: record, dataSource: dataSource });
+    await menashmq_1.default.send(index_1.default.rabbit.beforeMatchQName, { record: record, dataSource: dataSource });
 };
 exports.sendRecord = sendRecord;
 exports.default = { connectRabbit: exports.connectRabbit, sendRecord: exports.sendRecord };

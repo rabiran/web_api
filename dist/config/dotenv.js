@@ -18,8 +18,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv = __importStar(require("dotenv"));
+const dotenv = __importStar(require("dotenv-override"));
+const fs_1 = __importDefault(require("fs"));
 const dotenvPath = process.env.LOAD_DEV_DOTENV ? '.env.dev' : '.env';
 dotenv.config({ path: dotenvPath });
+if (process.env.LOAD_DEV_DOTENV === "true") {
+    const envConfig = dotenv.parse(fs_1.default.readFileSync('.env.dev'));
+    for (const k in envConfig) {
+        process.env[k] = envConfig[k];
+    }
+}
 //# sourceMappingURL=dotenv.js.map
