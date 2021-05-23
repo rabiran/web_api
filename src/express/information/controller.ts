@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
 import config from '../../config/index';
-import {sendRecord} from '../../rabbit/rabbit';
+import {sendRecordToMatch} from '../../rabbit/rabbit';
 import mock from '../../config/mocks.json';
 import createParamsPromises from '../../utils/createParamsPromises';
 import promiseAllWithFails from '../../utils/promiseAllWithFails';
-
-//import { readdirSync } from 'fs';
 
 export class InformationController {
     static async getInformation(req: Request, res: Response) {
@@ -28,17 +26,14 @@ export class InformationController {
             }
             if(!config.rabbit.isMockMatchToKart){
                 for (let index = 0; index < data.length; index++) {
-                    sendRecord(data[index], dataSource)
+                    sendRecordToMatch(data[index], dataSource)
                     
                 }
             }
             console.log(data)
             return data;
         }).catch((err)=> {throw err});
-        console.log("hey")
         res.json("ok")
-        
-
     }
 
     
