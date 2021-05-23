@@ -16,6 +16,8 @@ export const configEnv = {
         aka_uri: env.get('AKA_URI').required().asUrlString(),
         eight_socks_uri: env.get('EIGHT_SOCKS_URI').required().asUrlString(),
         city_uri: env.get('CITY_URI').required().asUrlString(),
+        ad_s_uri: env.get('AD_S_URI').required().asUrlString(),
+        ad_nn_uri: env.get('AD_NN_URI').required().asUrlString(),
         isMock: env.get('PROXY_MOCK').required().asBool(),
     },
     rabbit: {
@@ -57,21 +59,29 @@ export const configEnv = {
         clientSecretEightSocks: env.get('SPIKE_CLIENT_SECRET_EIGHT_SOCKS').required().asString(),
         audeienceEightSocks: env.get('AUDIENCE_EIGHT_SOCKS').required().asString(),
 
+        clientIDADS: env.get('SPIKE_CLIENT_ID_AD_S').required().asString(),
+        clientSecretADS: env.get('SPIKE_CLIENT_SECRET_AD_S').required().asString(),
+        audeienceADS: env.get('AUDIENCE_AD_S').required().asString(),
+
+        clientIDADnn: env.get('SPIKE_CLIENT_ID_AD_NN').required().asString(),
+        clientSecretADnn: env.get('SPIKE_CLIENT_SECRET_AD_NN').required().asString(),
+        audeienceADnn: env.get('AUDIENCE_AD_NN').required().asString(),
+
+
+
 
 
     }
-   
-  
-    
-
 
 };
 
 const obj:Map<string,string> = new Map();
-obj.set(dataSources.aka, configEnv.proxy.aka_uri)
-obj.set(dataSources.city,configEnv.proxy.city_uri)
-obj.set(dataSources.sf,configEnv.proxy.souf_uri)
-obj.set(dataSources.es,configEnv.proxy.eight_socks_uri)
+obj.set(dataSources.aka, configEnv.proxy.aka_uri);
+obj.set(dataSources.city,configEnv.proxy.city_uri);
+obj.set(dataSources.sf,configEnv.proxy.souf_uri);
+obj.set(dataSources.es,configEnv.proxy.eight_socks_uri);
+obj.set(dataSources.ads, configEnv.proxy.ad_s_uri);
+obj.set(dataSources.adNN, configEnv.proxy.ad_nn_uri);
 
 const config= Object.assign(configEnv,{urlSources: obj})
 
