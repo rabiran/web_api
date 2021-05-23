@@ -11,8 +11,8 @@ export class InformationController {
             res.json(mock);
             return;
         }
-        const dataSource =req.body.dataSource?.toString();
-        let resultsPromises = createParamsPromises(req,dataSource);
+        const dataSource:string =req.body.dataSource?.toString();
+        let resultsPromises:any = createParamsPromises(req,dataSource);
         
         promiseAllWithFails(resultsPromises,undefined).then((results)=>{
             let data:any =[];
