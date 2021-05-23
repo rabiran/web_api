@@ -31,8 +31,6 @@ export const configEnv = {
         },
         isMockMatchToKart: env.get('RABBIT_MOCK_MATCH_TO_KART').required().asBool(),
         isMockKiddy: env.get('RABBIT_MOCK_KIDDY').required().asBool(),
-        //isMockDataSources: env.get('RABBIT_MOCK_DATASOURCES').required().asBool(),
-        //isAllMock: env.get('RABBIT_MOCK_ALL_MOCK').required().asBool(),
         
     },
    dataSources,
@@ -47,7 +45,6 @@ obj.set(dataSources.aka, configEnv.proxy.aka_uri)
 obj.set(dataSources.city,configEnv.proxy.city_uri)
 obj.set(dataSources.sf,configEnv.proxy.souf_uri)
 obj.set(dataSources.es,configEnv.proxy.eight_socks_uri)
-//config['urlSources'] = obj;
 
 const config= Object.assign(configEnv,{urlSources: obj})
 

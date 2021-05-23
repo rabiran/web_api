@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dataSources = void 0;
+exports.dataSources = exports.existingParams = void 0;
+exports.existingParams = ["personalNumber", "identityCard", "domainUser"];
 exports.dataSources = {
     aka: "aka",
     es: "es_name",
@@ -15,5 +16,5 @@ exports.dataSources = {
     city: "city_name",
     mir: "mir_name",
 };
-exports.default = exports.dataSources;
+exports.default = { dataSources: exports.dataSources, existingParams: exports.existingParams };
 //# sourceMappingURL=dataSources.js.map

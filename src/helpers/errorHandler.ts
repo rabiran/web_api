@@ -9,6 +9,17 @@ export class ServerError extends Error {
     }
 }
 
+export class ValidationError extends Error {
+    code: Number;
+    message: string;
+    constructor(code, message) {
+        super();
+
+        this.code = code || 500;
+        this.message = message || 'Error';
+    }
+}
+
 export const handleHttpError = (err, res) => {
     const { code, message } = err;
 

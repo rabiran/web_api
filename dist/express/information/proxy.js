@@ -8,18 +8,18 @@ const axios_1 = __importDefault(require("axios"));
 const index_1 = __importDefault(require("../../config/index"));
 const errorHandler_1 = require("../../helpers/errorHandler");
 class InformationProxy {
-    static async getInformation(dataSource) {
-        let header = {};
+    static async getInformation(dataSource, parameter, value) {
+        let header = { url: index_1.default.urlSources.get(dataSource) + "/" + parameter + "/" + value };
         if (index_1.default.proxy.is_outside) {
-            header = { headers: { 'authorization': "123" }, url: index_1.default.urlSources.get(dataSource) };
+            header = { headers: { 'authorization': "123" }, url: index_1.default.urlSources.get(dataSource) + "/" + parameter + "/" + value };
         }
-        console.log("hey");
-        console.log(index_1.default.urlSources.get(dataSource));
-        const data = await axios_1.default(header).catch((err) => {
-            console.log(err);
+        const persons = await axios_1.default(header).catch((_) => {
             throw new errorHandler_1.ServerError(500, 'Cannot connect with proxy');
         });
-        return data;
+        if (persons === undefined || persons.data === undefined) {
+            return [];
+        }
+        return persons.data;
     }
 }
 exports.InformationProxy = InformationProxy;

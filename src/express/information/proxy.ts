@@ -4,24 +4,21 @@ import config from '../../config/index';
 import { ServerError } from '../../helpers/errorHandler';
 
 export class InformationProxy {
-    static async getInformation(dataSource: any) {
-        let header={}
+    static async getInformation(dataSource: any,parameter:string, value:any) {
+        let header:any={url:config.urlSources.get(dataSource)+"/"+parameter+"/"+value}
+
         if(config.proxy.is_outside){
-             header = {headers: {'authorization': "123"} , url:config.urlSources.get(dataSource) }
+             header = {headers: {'authorization': "123"} , url:config.urlSources.get(dataSource)+"/"+parameter+"/"+value }
         }
-        console.log("hey");   
-        console.log(config.urlSources.get(dataSource));
         
-        const data: any = await axios(header).catch((err) => {
-            console.log(err);
+        const persons: any = await axios(header).catch((_) => {
             throw new ServerError(500, 'Cannot connect with proxy');
         });
-        return data;
+        if(persons === undefined || persons.data === undefined){
+            return [];
+        }
+        return persons.data;
     }
-
-    // static async createFolder(req: Request, res: Response) {
-    //     res.json(await InformationProxy.createFolder(req.body));
-    // }
 }
 
 export default InformationProxy;

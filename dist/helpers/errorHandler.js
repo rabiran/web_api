@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleHttpError = exports.ServerError = void 0;
+exports.handleHttpError = exports.ValidationError = exports.ServerError = void 0;
 class ServerError extends Error {
     constructor(code, message) {
         super();
@@ -9,6 +9,14 @@ class ServerError extends Error {
     }
 }
 exports.ServerError = ServerError;
+class ValidationError extends Error {
+    constructor(code, message) {
+        super();
+        this.code = code || 500;
+        this.message = message || 'Error';
+    }
+}
+exports.ValidationError = ValidationError;
 const handleHttpError = (err, res) => {
     const { code, message } = err;
     res.status(code || 500).json({

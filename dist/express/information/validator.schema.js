@@ -23,7 +23,7 @@ exports.getInformationRequestSchema = void 0;
 const Joi = __importStar(require("joi"));
 exports.getInformationRequestSchema = Joi.object({
     query: {},
-    body: {},
-    params: { dataSource: Joi.string().required() },
+    body: { dataSource: Joi.string().required(), personalNumber: Joi.string(), identityCard: Joi.string(), domainUser: Joi.string() },
+    params: {},
 });
 //# sourceMappingURL=validator.schema.js.map

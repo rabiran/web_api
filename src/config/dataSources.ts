@@ -1,5 +1,9 @@
 
 
+export const existingParams:any = ["personalNumber","identityCard","domainUser"];
+
+
+
 export const dataSources =  {
     // aka: "aka_name",
     aka: "aka",
@@ -15,4 +19,4 @@ export const dataSources =  {
     city: "city_name",
     mir: "mir_name",
 };
-export default dataSources
+export default {dataSources, existingParams}
