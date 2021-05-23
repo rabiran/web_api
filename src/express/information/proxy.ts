@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import config from '../../config/index';
 import { ServerError } from '../../helpers/errorHandler';
+import {getSpikeToken} from '../../spike/spike'
 
 export class InformationProxy {
     static async getInformation(dataSource: any,parameter:string, value:any) {

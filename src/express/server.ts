@@ -6,6 +6,7 @@ import { connectRabbit } from '../rabbit/rabbit';
 import { once } from 'events';
 import { errorMiddleware } from './error';
 import appRouter from './router';
+import { configureSpikeRedis } from '../spike/spike';
 
 class Server {
     private app: express.Application;
@@ -35,8 +36,11 @@ class Server {
     }
 
     async start() {
-        this.http = this.app.listen(this.port);
         await connectRabbit();
+        configureSpikeRedis();
+        this.http = this.app.listen(this.port);
+        
+        
         await once(this.http, 'listening');
     }
 }
