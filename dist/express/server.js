@@ -8,6 +8,7 @@ const rabbit_1 = require("../rabbit/rabbit");
 const events_1 = require("events");
 const error_1 = require("./error");
 const router_1 = __importDefault(require("./router"));
+const spike_1 = require("../spike/spike");
 class Server {
     constructor(port) {
         this.app = Server.createExpressApp();
@@ -22,8 +23,9 @@ class Server {
         return app;
     }
     async start() {
-        this.http = this.app.listen(this.port);
         await rabbit_1.connectRabbit();
+        spike_1.configureSpikeRedis();
+        this.http = this.app.listen(this.port);
         await events_1.once(this.http, 'listening');
     }
 }

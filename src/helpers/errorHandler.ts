@@ -5,7 +5,7 @@ export class ServerError extends Error {
         super();
 
         this.code = code || 500;
-        this.message = message || 'Error';
+        this.message = message || 'Server Error';
     }
 }
 
@@ -16,7 +16,18 @@ export class ValidationError extends Error {
         super();
 
         this.code = code || 500;
-        this.message = message || 'Error';
+        this.message = message || 'Validation Error';
+    }
+}
+
+export class HttpError extends Error {
+    code: Number;
+    message: string;
+    constructor(code, message) {
+        super();
+        this.code = code || 500;
+        this.message = message || 'Http Error';
+
     }
 }
 

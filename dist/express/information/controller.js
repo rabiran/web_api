@@ -7,7 +7,7 @@ exports.InformationController = void 0;
 const index_1 = __importDefault(require("../../config/index"));
 const rabbit_1 = require("../../rabbit/rabbit");
 const mocks_json_1 = __importDefault(require("../../config/mocks.json"));
-const promises_1 = __importDefault(require("../../utils/promises"));
+const createParamsPromises_1 = __importDefault(require("../../utils/createParamsPromises"));
 const promiseAllWithFails_1 = __importDefault(require("../../utils/promiseAllWithFails"));
 class InformationController {
     static async getInformation(req, res) {
@@ -17,7 +17,7 @@ class InformationController {
             return;
         }
         const dataSource = (_a = req.body.dataSource) === null || _a === void 0 ? void 0 : _a.toString();
-        let resultsPromises = promises_1.default(req, dataSource);
+        let resultsPromises = createParamsPromises_1.default(req, dataSource);
         promiseAllWithFails_1.default(resultsPromises, undefined).then((results) => {
             let data = [];
             for (let res of results) {
@@ -28,13 +28,12 @@ class InformationController {
             }
             if (!index_1.default.rabbit.isMockMatchToKart) {
                 for (let index = 0; index < data.length; index++) {
-                    rabbit_1.sendRecord(data[index], dataSource);
+                    rabbit_1.sendRecordToMatch(data[index], dataSource);
                 }
             }
             console.log(data);
             return data;
         }).catch((err) => { throw err; });
-        console.log("hey");
         res.json("ok");
     }
 }

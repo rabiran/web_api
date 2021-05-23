@@ -6,13 +6,19 @@ import {getSpikeToken} from '../../spike/spike'
 
 export class InformationProxy {
     static async getInformation(dataSource: any,parameter:string, value:any) {
-        let header:any={url:config.urlSources.get(dataSource)+"/"+parameter+"/"+value}
+        let headers={};
 
         if(config.proxy.is_outside){
-             header = {headers: {'authorization': "123"} , url:config.urlSources.get(dataSource)+"/"+parameter+"/"+value }
+            headers= {headers: {'authorization': "123"} }
+        }
+        if(!config.token.isMockSpike){
+            const token = await getSpikeToken(dataSource).catch((_)=>{
+                throw new ServerError(500, 'Redis token invalid');
+            });
+            headers = { Authorization: token}
         }
         
-        const persons: any = await axios(header).catch((_) => {
+        const persons: any = await axios.get(config.urlSources.get(dataSource)+"/"+parameter+"/"+value, headers).catch((_) => {
             throw new ServerError(500, 'Cannot connect with proxy');
         });
         if(persons === undefined || persons.data === undefined){
