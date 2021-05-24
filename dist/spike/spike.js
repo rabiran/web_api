@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSpikeTokenEightSocks = exports.getSpikeTokenCity = exports.getSpikeTokenSouf = exports.getSpikeTokenAka = exports.getSpikeToken = exports.configureSpikeRedis = void 0;
+exports.getSpikeTokenADnn = exports.getSpikeTokenADS = exports.getSpikeTokenEightSocks = exports.getSpikeTokenCity = exports.getSpikeTokenSouf = exports.getSpikeTokenAka = exports.getSpikeToken = exports.configureSpikeRedis = void 0;
 const spike_get_token_1 = __importDefault(require("spike-get-token"));
 const getDSToken_1 = __importDefault(require("../config/getDSToken"));
 const index_1 = __importDefault(require("../config/index"));
@@ -12,23 +12,31 @@ let getTokenAka;
 let getTokenSouf;
 let getTokenCity;
 let getTokenEightSocks;
+let getTokenADNN;
+let getTokenADS;
 const configureSpikeRedis = () => {
     getTokenAka = spike_get_token_1.default(getDSToken_1.default(index_1.default.token.clientIDAka, index_1.default.token.clientSecretAka, index_1.default.token.audeienceAka, "tokenAka"));
     getTokenSouf = spike_get_token_1.default(getDSToken_1.default(index_1.default.token.clientIDSouf, index_1.default.token.clientSecretSouf, index_1.default.token.audeienceSouf, "tokenSouf"));
     getTokenCity = spike_get_token_1.default(getDSToken_1.default(index_1.default.token.clientIDCity, index_1.default.token.clientSecretCity, index_1.default.token.audeienceCity, "tokenCity"));
     getTokenEightSocks = spike_get_token_1.default(getDSToken_1.default(index_1.default.token.clientIDEightSocks, index_1.default.token.clientSecretEightSocks, index_1.default.token.audeienceEightSocks, "tokenEightSocks"));
+    getTokenADS = spike_get_token_1.default(getDSToken_1.default(index_1.default.token.clientIDADS, index_1.default.token.clientSecretADS, index_1.default.token.audeienceADS, "tokenADS"));
+    getTokenADNN = spike_get_token_1.default(getDSToken_1.default(index_1.default.token.clientIDADnn, index_1.default.token.clientSecretADnn, index_1.default.token.audeienceADnn, "tokenADnn"));
 };
 exports.configureSpikeRedis = configureSpikeRedis;
 const getSpikeToken = async (dataSourceName) => {
     switch (dataSourceName) {
         case dataSources_1.dataSources.aka:
-            return await getTokenAka();
+            return await exports.getSpikeTokenAka();
         case dataSources_1.dataSources.sf:
-            return await getTokenSouf();
+            return await exports.getSpikeTokenSouf();
         case dataSources_1.dataSources.city:
-            return await getTokenCity();
+            return await exports.getSpikeTokenCity();
         case dataSources_1.dataSources.es:
-            return await getTokenEightSocks();
+            return await exports.getSpikeTokenEightSocks();
+        case dataSources_1.dataSources.ads:
+            return await exports.getSpikeTokenADS();
+        case dataSources_1.dataSources.adNN:
+            return await exports.getSpikeTokenADnn();
         default:
             return null;
     }
@@ -50,5 +58,13 @@ const getSpikeTokenEightSocks = async () => {
     return await getTokenEightSocks();
 };
 exports.getSpikeTokenEightSocks = getSpikeTokenEightSocks;
-exports.default = { configureSpikeRedis: exports.configureSpikeRedis, getSpikeTokenAka: exports.getSpikeTokenAka, getSpikeTokenSouf: exports.getSpikeTokenSouf, getSpikeTokenCity: exports.getSpikeTokenCity, getSpikeTokenEightSocks: exports.getSpikeTokenEightSocks };
+const getSpikeTokenADS = async () => {
+    return await getTokenADS();
+};
+exports.getSpikeTokenADS = getSpikeTokenADS;
+const getSpikeTokenADnn = async () => {
+    return await getTokenADNN();
+};
+exports.getSpikeTokenADnn = getSpikeTokenADnn;
+exports.default = { configureSpikeRedis: exports.configureSpikeRedis, getSpikeToken: exports.getSpikeToken, getSpikeTokenAka: exports.getSpikeTokenAka, getSpikeTokenSouf: exports.getSpikeTokenSouf, getSpikeTokenCity: exports.getSpikeTokenCity, getSpikeTokenEightSocks: exports.getSpikeTokenEightSocks };
 //# sourceMappingURL=spike.js.map

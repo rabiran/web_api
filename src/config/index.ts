@@ -37,7 +37,8 @@ export const configEnv = {
     },
     dataSources,
     token:{
-        isMockSpike: env.get('SPIKE_MOCK').required().asBool(),
+        isMockSpikeToMe: env.get('SPIKE_MOCK_TO_ME').required().asBool(),
+        isMockSpikeToDS: env.get('SPIKE_MOCK_TO_DS_SERVICE').required().asBool(),
         redisUrl: env.get('REDIS_URL').required().asString(),
         spikeUrl: env.get('SPIKE_URL').required().asString(),
         clientID: env.get('SPIKE_CLIENT_ID').required().asString(),

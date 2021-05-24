@@ -17,6 +17,8 @@ export const configureSpikeRedis = () => {
 
     getTokenCity= getTokenCreator(options(config.token.clientIDCity,config.token.clientSecretCity,config.token.audeienceCity,"tokenCity"));
 
+    getTokenEightSocks = getTokenCreator(options(config.token.clientIDEightSocks,config.token.clientSecretEightSocks,config.token.audeienceEightSocks,"tokenEightSocks"));
+
     getTokenADS= getTokenCreator(options(config.token.clientIDADS,config.token.clientSecretADS,config.token.audeienceADS,"tokenADS"));
 
     getTokenADNN= getTokenCreator(options(config.token.clientIDADnn,config.token.clientSecretADnn,config.token.audeienceADnn,"tokenADnn"));

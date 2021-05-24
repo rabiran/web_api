@@ -10,7 +10,7 @@ const averify = util.promisify(jwt.verify);
 
 export const isAuth = async (req :Request, _:Response, next: NextFunction) => {
 
-    if(config.token.isMockSpike) return next();
+    if(config.token.isMockSpikeToMe) return next();
     
     const token = req.header('Authorization');
     const key = fs.readFileSync(path.join(__dirname, '../../config/key.pem'));

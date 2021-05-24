@@ -11,7 +11,7 @@ export class InformationProxy {
         if(config.proxy.is_outside){
             headers= {headers: {'authorization': "123"} }
         }
-        if(!config.token.isMockSpike){
+        if(!config.token.isMockSpikeToDS){
             const token = await getSpikeToken(dataSource).catch((_)=>{
                 throw new ServerError(500, 'Redis token invalid');
             });

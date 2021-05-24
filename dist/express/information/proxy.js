@@ -14,7 +14,7 @@ class InformationProxy {
         if (index_1.default.proxy.is_outside) {
             headers = { headers: { 'authorization': "123" } };
         }
-        if (!index_1.default.token.isMockSpike) {
+        if (!index_1.default.token.isMockSpikeToDS) {
             const token = await spike_1.getSpikeToken(dataSource).catch((_) => {
                 throw new errorHandler_1.ServerError(500, 'Redis token invalid');
             });

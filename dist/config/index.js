@@ -33,6 +33,8 @@ exports.configEnv = {
         aka_uri: env.get('AKA_URI').required().asUrlString(),
         eight_socks_uri: env.get('EIGHT_SOCKS_URI').required().asUrlString(),
         city_uri: env.get('CITY_URI').required().asUrlString(),
+        ad_s_uri: env.get('AD_S_URI').required().asUrlString(),
+        ad_nn_uri: env.get('AD_NN_URI').required().asUrlString(),
         isMock: env.get('PROXY_MOCK').required().asBool(),
     },
     rabbit: {
@@ -50,7 +52,8 @@ exports.configEnv = {
     },
     dataSources: dataSources_1.dataSources,
     token: {
-        isMockSpike: env.get('SPIKE_MOCK').required().asBool(),
+        isMockSpikeToMe: env.get('SPIKE_MOCK_TO_ME').required().asBool(),
+        isMockSpikeToDS: env.get('SPIKE_MOCK_TO_DS_SERVICE').required().asBool(),
         redisUrl: env.get('REDIS_URL').required().asString(),
         spikeUrl: env.get('SPIKE_URL').required().asString(),
         clientID: env.get('SPIKE_CLIENT_ID').required().asString(),
@@ -68,6 +71,12 @@ exports.configEnv = {
         clientIDEightSocks: env.get('SPIKE_CLIENT_ID_EIGHT_SOCKS').required().asString(),
         clientSecretEightSocks: env.get('SPIKE_CLIENT_SECRET_EIGHT_SOCKS').required().asString(),
         audeienceEightSocks: env.get('AUDIENCE_EIGHT_SOCKS').required().asString(),
+        clientIDADS: env.get('SPIKE_CLIENT_ID_AD_S').required().asString(),
+        clientSecretADS: env.get('SPIKE_CLIENT_SECRET_AD_S').required().asString(),
+        audeienceADS: env.get('AUDIENCE_AD_S').required().asString(),
+        clientIDADnn: env.get('SPIKE_CLIENT_ID_AD_NN').required().asString(),
+        clientSecretADnn: env.get('SPIKE_CLIENT_SECRET_AD_NN').required().asString(),
+        audeienceADnn: env.get('AUDIENCE_AD_NN').required().asString(),
     }
 };
 const obj = new Map();
@@ -75,6 +84,8 @@ obj.set(dataSources_1.dataSources.aka, exports.configEnv.proxy.aka_uri);
 obj.set(dataSources_1.dataSources.city, exports.configEnv.proxy.city_uri);
 obj.set(dataSources_1.dataSources.sf, exports.configEnv.proxy.souf_uri);
 obj.set(dataSources_1.dataSources.es, exports.configEnv.proxy.eight_socks_uri);
+obj.set(dataSources_1.dataSources.ads, exports.configEnv.proxy.ad_s_uri);
+obj.set(dataSources_1.dataSources.adNN, exports.configEnv.proxy.ad_nn_uri);
 const config = Object.assign(exports.configEnv, { urlSources: obj });
 exports.default = config;
 //# sourceMappingURL=index.js.map
