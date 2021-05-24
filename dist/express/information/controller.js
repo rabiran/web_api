@@ -17,6 +17,7 @@ class InformationController {
             return;
         }
         const dataSource = (_a = req.body.dataSource) === null || _a === void 0 ? void 0 : _a.toString();
+        const runUID = req.body.runUID.toString();
         let resultsPromises = createParamsPromises_1.default(req, dataSource);
         promiseAllWithFails_1.default(resultsPromises, undefined).then((results) => {
             let data = [];
@@ -28,7 +29,7 @@ class InformationController {
             }
             if (!index_1.default.rabbit.isMockMatchToKart) {
                 for (let index = 0; index < data.length; index++) {
-                    rabbit_1.sendRecordToMatch(data[index], dataSource);
+                    rabbit_1.sendRecordToMatch(data[index], dataSource, runUID);
                 }
             }
             console.log(data);

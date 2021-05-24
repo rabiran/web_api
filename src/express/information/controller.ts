@@ -11,7 +11,9 @@ export class InformationController {
             res.json(mock);
             return;
         }
+
         const dataSource:string =req.body.dataSource?.toString();
+        const runUID:string =req.body.runUID.toString();
         let resultsPromises:any = createParamsPromises(req,dataSource);
         
         promiseAllWithFails(resultsPromises,undefined).then((results)=>{
@@ -22,15 +24,13 @@ export class InformationController {
                     data = res;
                     break;
                 }
-    
             }
             if(!config.rabbit.isMockMatchToKart){
                 for (let index = 0; index < data.length; index++) {
-                    sendRecordToMatch(data[index], dataSource)
+                    sendRecordToMatch(data[index], dataSource, runUID)
                     
                 }
             }
-            console.log(data)
             return data;
         }).catch((err)=> {throw err});
         res.json("ok")

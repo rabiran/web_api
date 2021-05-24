@@ -9,8 +9,8 @@ const path_1 = __importDefault(require("path"));
 const options = (clientID, clientSecret, tokenAudience, tokenKeyName) => {
     return {
         redisHost: index_1.default.token.redisUrl,
-        ClientId: clientID,
-        ClientSecret: clientSecret,
+        clientId: clientID,
+        clientSecret: clientSecret,
         spikeURL: index_1.default.token.spikeUrl,
         tokenGrantType: 'client_credentials',
         tokenAudience: tokenAudience,

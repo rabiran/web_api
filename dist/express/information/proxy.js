@@ -11,16 +11,17 @@ const spike_1 = require("../../spike/spike");
 class InformationProxy {
     static async getInformation(dataSource, parameter, value) {
         let headers = {};
-        if (index_1.default.proxy.is_outside) {
-            headers = { headers: { 'authorization': "123" } };
-        }
         if (!index_1.default.token.isMockSpikeToDS) {
+            console.log("hey2");
             const token = await spike_1.getSpikeToken(dataSource).catch((_) => {
                 throw new errorHandler_1.ServerError(500, 'Redis token invalid');
             });
+            if (token === null) {
+                throw new errorHandler_1.ServerError(500, 'Data source doesn`t exist');
+            }
             headers = { Authorization: token };
         }
-        const persons = await axios_1.default.get(index_1.default.urlSources.get(dataSource) + "/" + parameter + "/" + value, headers).catch((_) => {
+        const persons = await axios_1.default.get(index_1.default.urlSources.get(dataSource) + "/" + parameter + "/" + value, { headers }).catch((_) => {
             throw new errorHandler_1.ServerError(500, 'Cannot connect with proxy');
         });
         if (persons === undefined || persons.data === undefined) {

@@ -4,8 +4,8 @@ import path from "path";
 export const options= (clientID:string,clientSecret:string,tokenAudience:string, tokenKeyName:string) =>{
     return{
     redisHost: config.token.redisUrl,
-    ClientId: clientID,
-    ClientSecret: clientSecret,
+    clientId: clientID,
+    clientSecret: clientSecret,
     spikeURL: config.token.spikeUrl,
     tokenGrantType: 'client_credentials',
     tokenAudience: tokenAudience,

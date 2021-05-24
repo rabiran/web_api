@@ -38,8 +38,8 @@ export const connectRabbit = async () => {
         { noAck: false },
     );
 };
-export const sendRecordToMatch = async (record: any, dataSource: any) => {
-    await menash.send(config.rabbit.beforeMatchQName, { record: record, dataSource: dataSource });
+export const sendRecordToMatch = async (record: any, dataSource: any,runUID:any) => {
+    await menash.send(config.rabbit.beforeMatchQName, { record: record, dataSource: dataSource, runUID:runUID });
 };
 
 export default { connectRabbit, sendRecordToMatch };

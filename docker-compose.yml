@@ -1,16 +1,47 @@
 version: '3.4'
 
 services:
-  web_api:
+
+  splitter:
     image: tommy/webapi
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment: 
+      - 
+    depends_on: 
+      - redis
+  
+  matchKart:
+    image: tommy/webapi
+    restart: unless-stopped
     ports:
       - 27017:27017
 
   rabbit:
     image: rabbitmq:3-management
+    restart: unless-stopped
     ports:
       - 5672:5672
       - 15672:15672
+
+  mocksKart:
+    image: mocks/mocksKart
+    restart: unless-stopped
+    ports:
+      - 7700:7700
+
+  redis:
+    image: bitnami/redis:latest
+    user: root
+    restart: unless-stopped
+    environment: 
+      # - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    ports:
+      - "6379:6379"
+        volumes:
+      - ${REDIS_LOCALVOLUME}:/bitnami/redis/data
 
   
 

@@ -28,7 +28,6 @@ exports.configEnv = {
         port: env.get('PORT').required().asPortNumber(),
     },
     proxy: {
-        is_outside: env.get('IS_OUTSIDE').default('false').asBool(),
         souf_uri: env.get('SOUF_URI').required().asUrlString(),
         aka_uri: env.get('AKA_URI').required().asUrlString(),
         eight_socks_uri: env.get('EIGHT_SOCKS_URI').required().asUrlString(),

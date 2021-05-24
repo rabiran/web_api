@@ -9,19 +9,39 @@ let getTokenCity;
 let getTokenEightSocks;
 let getTokenADNN;
 let getTokenADS;
+export const getSpikeTokenAka = async () => {
+    return await getTokenAka();
+}
+export const getSpikeTokenSouf = async () => {
+    return await getTokenSouf();
+}
+export const getSpikeTokenCity = async () => {
+    return await getTokenCity();
+}
+
+export const getSpikeTokenEightSocks = async () => {
+    return await getTokenEightSocks();
+}
+export const getSpikeTokenADS = async () => {
+    return await getTokenADS();
+}
+export const getSpikeTokenADnn= async () => {
+    return await getTokenADNN();
+}
 
 export const configureSpikeRedis = () => {
-    getTokenAka = getTokenCreator(options(config.token.clientIDAka,config.token.clientSecretAka,config.token.audeienceAka,"tokenAka"));
 
-    getTokenSouf= getTokenCreator(options(config.token.clientIDSouf,config.token.clientSecretSouf,config.token.audeienceSouf,"tokenSouf"));
+    getTokenAka = getTokenCreator(options(config.token.clientID,config.token.clientSecret,config.token.audeienceAka,"tokenAka"));
 
-    getTokenCity= getTokenCreator(options(config.token.clientIDCity,config.token.clientSecretCity,config.token.audeienceCity,"tokenCity"));
+    getTokenSouf= getTokenCreator(options(config.token.clientID,config.token.clientSecret,config.token.audeienceSouf,"tokenSouf"));
 
-    getTokenEightSocks = getTokenCreator(options(config.token.clientIDEightSocks,config.token.clientSecretEightSocks,config.token.audeienceEightSocks,"tokenEightSocks"));
+    getTokenCity= getTokenCreator(options(config.token.clientID,config.token.clientSecret,config.token.audeienceCity,"tokenCity"));
 
-    getTokenADS= getTokenCreator(options(config.token.clientIDADS,config.token.clientSecretADS,config.token.audeienceADS,"tokenADS"));
+    getTokenEightSocks = getTokenCreator(options(config.token.clientID,config.token.clientSecret,config.token.audeienceEightSocks,"tokenEightSocks"));
 
-    getTokenADNN= getTokenCreator(options(config.token.clientIDADnn,config.token.clientSecretADnn,config.token.audeienceADnn,"tokenADnn"));
+    getTokenADS= getTokenCreator(options(config.token.clientID,config.token.clientSecret,config.token.audeienceADS,"tokenADS"));
+
+    getTokenADNN= getTokenCreator(options(config.token.clientID,config.token.clientSecret,config.token.audeienceADnn,"tokenADnn"));
 
 
 }
@@ -45,24 +65,6 @@ export const getSpikeToken = async(dataSourceName:string) =>{
     }
 }
 
-export const getSpikeTokenAka = async () => {
-    return await getTokenAka();
-}
-export const getSpikeTokenSouf = async () => {
-    return await getTokenSouf();
-}
-export const getSpikeTokenCity = async () => {
-    return await getTokenCity();
-}
 
-export const getSpikeTokenEightSocks = async () => {
-    return await getTokenEightSocks();
-}
-export const getSpikeTokenADS = async () => {
-    return await getTokenADS();
-}
-export const getSpikeTokenADnn= async () => {
-    return await getTokenADNN();
-}
 
 export default { configureSpikeRedis ,getSpikeToken, getSpikeTokenAka,getSpikeTokenSouf, getSpikeTokenCity,getSpikeTokenEightSocks }

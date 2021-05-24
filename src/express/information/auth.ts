@@ -12,6 +12,7 @@ export const isAuth = async (req :Request, _:Response, next: NextFunction) => {
 
     if(config.token.isMockSpikeToMe) return next();
     
+
     const token = req.header('Authorization');
     const key = fs.readFileSync(path.join(__dirname, '../../config/key.pem'));
     

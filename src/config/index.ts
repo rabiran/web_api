@@ -11,7 +11,6 @@ export const configEnv = {
         port: env.get('PORT').required().asPortNumber(),
     },
     proxy: {
-        is_outside: env.get('IS_OUTSIDE').default('false').asBool(),
         souf_uri: env.get('SOUF_URI').required().asUrlString(),
         aka_uri: env.get('AKA_URI').required().asUrlString(),
         eight_socks_uri: env.get('EIGHT_SOCKS_URI').required().asUrlString(),
@@ -85,5 +84,4 @@ obj.set(dataSources.ads, configEnv.proxy.ad_s_uri);
 obj.set(dataSources.adNN, configEnv.proxy.ad_nn_uri);
 
 const config= Object.assign(configEnv,{urlSources: obj})
-
 export default config;

@@ -28,8 +28,8 @@ const connectRabbit = async () => {
     }, { noAck: false });
 };
 exports.connectRabbit = connectRabbit;
-const sendRecordToMatch = async (record, dataSource) => {
-    await menashmq_1.default.send(index_1.default.rabbit.beforeMatchQName, { record: record, dataSource: dataSource });
+const sendRecordToMatch = async (record, dataSource, runUID) => {
+    await menashmq_1.default.send(index_1.default.rabbit.beforeMatchQName, { record: record, dataSource: dataSource, runUID: runUID });
 };
 exports.sendRecordToMatch = sendRecordToMatch;
 exports.default = { connectRabbit: exports.connectRabbit, sendRecordToMatch: exports.sendRecordToMatch };
