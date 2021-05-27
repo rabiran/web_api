@@ -5,7 +5,6 @@ export const existingParams:any = ["personalNumber","identityCard","domainUser"]
 
 
 export const dataSources =  {
-    // aka: "aka_name",
     aka: "aka",
     es: "es_name",
     ads: "ads_name",

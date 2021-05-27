@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.errorMiddleware = exports.ServiceError = void 0;
+const errorHandler_1 = require("../helpers/errorHandler");
 class ServiceError extends Error {
     constructor(code, message) {
         super(message);
@@ -17,6 +18,12 @@ const errorMiddleware = (error, _req, res, next) => {
     }
     else if (error instanceof ServiceError) {
         res.status(error.code).send({
+            type: error.name,
+            message: error.message,
+        });
+    }
+    else if (error instanceof errorHandler_1.ValidationError) {
+        res.status(400).send({
             type: error.name,
             message: error.message,
         });

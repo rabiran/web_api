@@ -9,7 +9,6 @@ export class InformationProxy {
         let headers={};
 
         if(!config.token.isMockSpikeToDS){
-            console.log("hey2")
             const token = await getSpikeToken(dataSource).catch((_)=>{
                 
                 throw new ServerError(500, 'Redis token invalid');

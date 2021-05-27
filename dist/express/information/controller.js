@@ -32,7 +32,6 @@ class InformationController {
                     rabbit_1.sendRecordToMatch(data[index], dataSource, runUID);
                 }
             }
-            console.log(data);
             return data;
         }).catch((err) => { throw err; });
         res.json("ok");

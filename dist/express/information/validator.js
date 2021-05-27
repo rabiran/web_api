@@ -10,7 +10,7 @@ class InformationValidator {
     static async dataSourceExistence(_req) {
         let key = _req.body.dataSource;
         if (!index_1.default.urlSources.has(key)) {
-            throw new errorHandler_1.ValidationError(500, "Datasource does not exist in config!");
+            throw new errorHandler_1.ValidationError(400, "Datasource does not exist in config!");
         }
     }
 }

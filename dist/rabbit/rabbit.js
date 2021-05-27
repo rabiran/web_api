@@ -7,25 +7,13 @@ exports.sendRecordToMatch = exports.connectRabbit = void 0;
 const menashmq_1 = __importDefault(require("menashmq"));
 const index_1 = __importDefault(require("../config/index"));
 const connectRabbit = async () => {
-    if (index_1.default.rabbit.isMockKiddy && index_1.default.rabbit.isMockMatchToKart) {
+    if (index_1.default.rabbit.isMockMatchToKart) {
         return;
     }
     console.log('Connecting to Rabbit...');
     await menashmq_1.default.connect(index_1.default.rabbit.uri, index_1.default.rabbit.retryOptions);
     console.log('Rabbit connected');
     await menashmq_1.default.declareQueue(index_1.default.rabbit.beforeMatchQName);
-    await menashmq_1.default.declareQueue(index_1.default.rabbit.afterMatchQName);
-    await menashmq_1.default.declareQueue(index_1.default.rabbit.kiddyQName);
-    if (index_1.default.rabbit.isMockMatchToKart) {
-        return;
-    }
-    await menashmq_1.default.queue(index_1.default.rabbit.afterMatchQName).activateConsumer(async (msg) => {
-        let record = msg.getContent();
-        if (!index_1.default.rabbit.isMockKiddy) {
-            await menashmq_1.default.send(index_1.default.rabbit.kiddyQName, JSON.stringify(record));
-        }
-        msg.ack();
-    }, { noAck: false });
 };
 exports.connectRabbit = connectRabbit;
 const sendRecordToMatch = async (record, dataSource, runUID) => {

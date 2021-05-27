@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.options = void 0;
 const index_1 = __importDefault(require("./index"));
 const path_1 = __importDefault(require("path"));
+const process_1 = __importDefault(require("process"));
 const options = (clientID, clientSecret, tokenAudience, tokenKeyName) => {
     return {
         redisHost: index_1.default.token.redisUrl,
@@ -15,7 +16,7 @@ const options = (clientID, clientSecret, tokenAudience, tokenKeyName) => {
         tokenGrantType: 'client_credentials',
         tokenAudience: tokenAudience,
         tokenRedisKeyName: tokenKeyName,
-        spikePublicKeyFullPath: path_1.default.join(__dirname, './key.pem'),
+        spikePublicKeyFullPath: path_1.default.join(process_1.default.cwd(), './key.pem'),
         useRedis: true,
         httpsValidation: false,
     };

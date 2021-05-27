@@ -3,20 +3,16 @@ version: '3.4'
 services:
 
   splitter:
-    image: tommy/webapi
+    image: tommyafek/splitter
     restart: unless-stopped
     ports:
-      - 27017:27017
-    environment: 
-      - 
+      - 9001:9001
+    env_file: variables.env
+    volumes: 
+      - ./dataSources.ts:/usr/src/app/app/config/dataSources.ts
     depends_on: 
       - redis
-  
-  matchKart:
-    image: tommy/webapi
-    restart: unless-stopped
-    ports:
-      - 27017:27017
+      - rabbit
 
   rabbit:
     image: rabbitmq:3-management
@@ -26,8 +22,9 @@ services:
       - 15672:15672
 
   mocksKart:
-    image: mocks/mocksKart
+    image: tommyafek/mock
     restart: unless-stopped
+    env_file: mock.env
     ports:
       - 7700:7700
 
@@ -36,12 +33,12 @@ services:
     user: root
     restart: unless-stopped
     environment: 
-      # - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=yes
     ports:
-      - "6379:6379"
-        volumes:
-      - ${REDIS_LOCALVOLUME}:/bitnami/redis/data
+      - 6379:6379
+    volumes:
+      - redis_data:/bitnami/redis/data
 
-  
-
+volumes:
+  redis_data:
+    driver: local

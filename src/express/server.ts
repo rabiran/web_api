@@ -9,7 +9,7 @@ import appRouter from './router';
 import { configureSpikeRedis } from '../spike/spike';
 
 class Server {
-    private app: express.Application;
+    public app: express.Application;
 
     private http: http.Server;
 

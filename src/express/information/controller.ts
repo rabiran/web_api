@@ -16,6 +16,7 @@ export class InformationController {
         const runUID:string =req.body.runUID.toString();
         let resultsPromises:any = createParamsPromises(req,dataSource);
         
+
         promiseAllWithFails(resultsPromises,undefined).then((results)=>{
             let data:any =[];
             for (let res of results) {             
@@ -32,7 +33,7 @@ export class InformationController {
                 }
             }
             return data;
-        }).catch((err)=> {throw err});
+        }).catch((err)=> {throw err})
         res.json("ok")
     }
 

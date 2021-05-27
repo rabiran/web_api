@@ -20,7 +20,6 @@ export default function createParamsPromises(req:Request, dataSource:string){
     Object.keys(req.body).forEach(function(key){ 
 
         if(existingParams.includes(key)){
-
             promiseAllParams.push(new Promise(async(resolve,_)=>{
                 let data = await InformationProxy.getInformation(dataSource,key,req.body[key]).catch((_)=> resolve([]))
                 resolve(data);

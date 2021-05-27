@@ -1,4 +1,5 @@
 import * as express from 'express';
+import {ValidationError} from '../helpers/errorHandler'
 
 export class ServiceError extends Error {
     public code;
@@ -17,6 +18,11 @@ export const errorMiddleware = (error: Error, _req: express.Request, res: expres
         });
     } else if (error instanceof ServiceError) {
         res.status(error.code).send({
+            type: error.name,
+            message: error.message,
+        });
+    }else if (error instanceof ValidationError) {
+        res.status(400).send({
             type: error.name,
             message: error.message,
         });
